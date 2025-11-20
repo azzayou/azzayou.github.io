@@ -22,9 +22,15 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             color: var(--text-color);
             line-height: 1.6;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
         }
         
         .container {
@@ -57,7 +63,7 @@
         }
         
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
             margin-left: 10px;
         }
         
@@ -79,6 +85,9 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            padding: 5px 0;
+            display: block;
         }
         
         nav ul li a:hover {
@@ -99,6 +108,7 @@
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
         }
         
         .lang-btn:hover, .lang-btn.active {
@@ -110,6 +120,10 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+            color: white;
+            background: none;
+            border: none;
+            padding: 5px;
         }
         
         /* Hero Section */
@@ -117,18 +131,22 @@
             background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)), url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             color: white;
             padding: 5rem 0;
             text-align: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 1rem;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             max-width: 700px;
             margin: 0 auto 2rem;
         }
@@ -142,6 +160,9 @@
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2vw, 1rem);
         }
         
         .btn:hover {
@@ -160,7 +181,7 @@
         }
         
         .section-title h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             position: relative;
             display: inline-block;
             padding-bottom: 10px;
@@ -199,6 +220,11 @@
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.3s;
+        }
+        
+        .about-image img:hover {
+            transform: scale(1.03);
         }
         
         /* Services Section */
@@ -208,7 +234,7 @@
         
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
         
@@ -217,11 +243,12 @@
             border-radius: 8px;
             padding: 2rem;
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .service-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
         
         .service-icon {
@@ -233,6 +260,7 @@
         .service-card h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
         }
         
         /* Values Section */
@@ -273,6 +301,11 @@
             border-radius: 8px;
             padding: 2rem;
             box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
         }
         
         .member-icon {
@@ -320,6 +353,14 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary-color);
+            outline: none;
         }
         
         .form-group textarea {
@@ -394,6 +435,12 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                background-attachment: scroll;
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -403,10 +450,23 @@
             nav ul {
                 margin-top: 1rem;
                 flex-direction: column;
+                display: none;
+                width: 100%;
+            }
+            
+            nav ul.show {
+                display: flex;
             }
             
             nav ul li {
                 margin: 0.5rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav ul li a {
+                padding: 10px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
             
             .language-selector {
@@ -428,8 +488,56 @@
                 flex-direction: column;
             }
             
+            .hero {
+                padding: 3rem 0;
+                min-height: 60vh;
+            }
+            
             .hero h2 {
                 font-size: 2rem;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+            
+            .service-card, .value-item, .team-member {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+                min-height: 50vh;
+            }
+            
+            .hero h2 {
+                font-size: 1.7rem;
+            }
+            
+            section {
+                padding: 2rem 0;
+            }
+            
+            .services-grid, .values-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-card, .value-item, .team-member {
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                margin-bottom: 2rem;
             }
         }
         
@@ -448,10 +556,50 @@
             flex-direction: row-reverse;
         }
         
+        body[dir="rtl"] .header-content,
+        body[dir="rtl"] nav ul {
+            flex-direction: row-reverse;
+        }
+        
+        body[dir="rtl"] .language-selector {
+            margin-left: 0;
+            margin-right: 2rem;
+        }
+        
+        body[dir="rtl"] .lang-btn {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+        
+        body[dir="rtl"] .contact-content {
+            flex-direction: row-reverse;
+        }
+        
         @media (max-width: 768px) {
-            body[dir="rtl"] .about-content {
+            body[dir="rtl"] .about-content,
+            body[dir="rtl"] .contact-content,
+            body[dir="rtl"] .header-content {
                 flex-direction: column;
             }
+            
+            body[dir="rtl"] nav ul {
+                flex-direction: column;
+            }
+        }
+        
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Focus styles for keyboard navigation */
+        a:focus, button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -478,7 +626,7 @@
                     <button class="lang-btn" data-lang="ar">AR</button>
                     <button class="lang-btn" data-lang="en">EN</button>
                 </div>
-                <div class="mobile-menu">☰</div>
+                <button class="mobile-menu" aria-label="Menu">☰</button>
             </div>
         </div>
     </header>
@@ -486,7 +634,7 @@
     <!-- Hero Section -->
     <section class="hero" id="accueil">
         <div class="container">
-            <h2 data-key="heroTitle">Services de Livraison de Marchandises au Maroc</h2>
+            <h2 data-key="heroTitle">Services de Livraison au Maroc</h2>
             <p data-key="heroSubtitle">Qualité, Rapidité et Satisfaction Client - Notre engagement pour votre réussite</p>
             <a href="#contact" class="btn" data-key="getQuote">Demander un Devis</a>
         </div>
@@ -532,7 +680,6 @@
                 </div>
                 <div class="service-card">
                     <div class="service-icon">❄️</div>
-                    <h3 data-key="refrigeratedDelivery">Livraison Réfrigérée</h3>
                     <p data-key="refrigeratedDeliveryDesc">Transport spécialisé pour les produits frais et sensibles à la température.</p>
                 </div>
                 <div class="service-card">
@@ -547,7 +694,6 @@
                 </div>
                 <div class="service-card">
                     <div class="service-icon">🛡️</div>
-                    <h3 data-key="cargoInsurance">Assurance Marchandise</h3>
                     <p data-key="cargoInsuranceDesc">Protection complète contre les dommages et pertes pour une tranquillité d'esprit totale.</p>
                 </div>
             </div>
@@ -589,7 +735,7 @@
     <section id="equipe" class="team">
         <div class="container">
             <div class="section-title">
-                <h2 data-key="teamTitle">Notre Équipe</h2>
+                <h2 data-key="teamTitle">Co-fondateur</h2>
             </div>
             <div class="team-grid">
                 <div class="team-member">
@@ -628,7 +774,7 @@
                     <p><strong data-key="addressLabel">Adresse:</strong> <span data-key="address">Siège social, Maroc</span></p>
                     <p><strong data-key="phoneLabel">Téléphone:</strong> +212 XXX XXX XXX</p>
                     <p><strong data-key="emailLabel">Email:</strong> contact@nasroazzou.ma</p>
-                    <p><strong data-key="hoursLabel">Heures d'ouverture:</strong> <span data-key="hours">Lun - Ven: 8h00 - 18h00</span></p>
+                    <p><strong data-key="hoursLabel">Heures d'ouverture:</strong> <span data-key="hours">24/24H</span></p>
                     
                     <h3 data-key="marketingStrategy">Notre Stratégie Marketing</h3>
                     <ul>
@@ -640,7 +786,7 @@
                 </div>
                 <div class="contact-form">
                     <h3 data-key="quoteRequest">Demande de Devis</h3>
-                    <form>
+                    <form id="quoteForm">
                         <div class="form-group">
                             <label for="name" data-key="fullName">Nom Complet</label>
                             <input type="text" id="name" required>
@@ -681,10 +827,10 @@
                     <h3>NASRO AZZOU</h3>
                     <p data-key="footerDesc">Votre partenaire de confiance pour tous vos besoins de livraison au Maroc. Qualité, Rapidité, Satisfaction.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f">f</i></a>
-                        <a href="#"><i class="fab fa-twitter">t</i></a>
-                        <a href="#"><i class="fab fa-instagram">i</i></a>
-                        <a href="#"><i class="fab fa-linkedin-in">in</i></a>
+                        <a href="#"><span>f</span></a>
+                        <a href="#"><span>t</span></a>
+                        <a href="#"><span>i</span></a>
+                        <a href="#"><span>in</span></a>
                     </div>
                 </div>
                 <div class="footer-column">
@@ -703,10 +849,8 @@
                     <ul>
                         <li><a href="#" data-key="expressDelivery">Livraison Express</a></li>
                         <li><a href="#" data-key="standardDelivery">Livraison Standard</a></li>
-                        <li><a href="#" data-key="refrigeratedDelivery">Livraison Réfrigérée</a></li>
                         <li><a href="#" data-key="bulkDelivery">Livraison de Gros Volume</a></li>
                         <li><a href="#" data-key="realTimeTracking">Suivi en Temps Réel</a></li>
-                        <li><a href="#" data-key="cargoInsurance">Assurance Marchandise</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -715,12 +859,11 @@
                         <li data-key="address">Siège social, Maroc</li>
                         <li>+212 XXX XXX XXX</li>
                         <li>contact@nasroazzou.ma</li>
-                        <li data-key="hours">Lun - Ven: 8h00 - 18h00</li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 NASRO AZZOU - <span data-key="allRights">Tous droits réservés</span></p>
+                <p>&copy; 2025 NASRO AZZOU - <span data-key="allRights">Tous droits réservés</span></p>
             </div>
         </div>
     </footer>
@@ -778,7 +921,7 @@
                 reliabilityValueDesc: "Nous nous engageons à respecter nos engagements et à garantir la sécurité de vos marchandises.",
                 
                 // Team section
-                teamTitle: "Notre Équipe",
+                teamTitle: "Co-fondateur",
                 ceoRole: "Co-fondateur & Directeur Général",
                 operationsRole: "Co-fondateur & Directeur des Opérations",
                 commercialRole: "Co-fondateur & Directeur Commercial",
@@ -788,11 +931,11 @@
                 contactTitle: "Contactez-Nous",
                 contactInfo: "Informations de Contact",
                 addressLabel: "Adresse:",
-                address: "Siège social, Maroc",
+                address: "Casablanca, Maroc",
                 phoneLabel: "Téléphone:",
                 emailLabel: "Email:",
                 hoursLabel: "Heures d'ouverture:",
-                hours: "Lun - Ven: 8h00 - 18h00",
+                hours: "24/24",
                 marketingStrategy: "Notre Stratégie Marketing",
                 marketing1: "Marketing Digital - Présence forte sur les réseaux sociaux",
                 marketing2: "Partenariats stratégiques avec des plateformes e-commerce",
@@ -823,7 +966,7 @@
                 about: "من نحن",
                 services: "خدماتنا",
                 values: "قيمنا",
-                team: "فريقنا",
+                team: "المؤسيسين المشركة",
                 contact: "اتصل بنا",
                 
                 // Hero section
@@ -835,7 +978,7 @@
                 aboutTitle: "من نحن",
                 missionTitle: "مهمتنا",
                 missionText1: "نصر عزو هي شركة لتوصيل البضائع تركز على الجودة والسرعة ورضا العملاء والشركاء التجاريين. اسمنا يجسد النصر والفخر والاحترافية.",
-                missionText2: "تشهد قطاع التوصيل نموًا سريعًا في المغرب، مدفوعًا بالتجارة الإلكترونية وتطور عادات الاستهلاك. نحن نضع أنفسنا كفاعل رئيسي في هذا السوق المتوسع.",
+                missionText2: "يشهد قطاع التوصيل نموًا سريعًا في المغرب، مدفوعًا بالتجارة الإلكترونية وتطور عادات الاستهلاك. نحن نضع أنفسنا كفاعل رئيسي في هذا السوق المتوسع.",
                 sloganTitle: "شعارنا",
                 slogan: "QRS:",
                 sloganText: "جودة البضائع المشحونة، سرعة التوصيل، رضا العملاء.",
@@ -867,18 +1010,225 @@
                 reliabilityValueDesc: "نلتزم باحترام التزاماتنا وضمان سلامة بضائعكم.",
                 
                 // Team section
-                teamTitle: "فريقنا",
-                ceoRole: "المؤسس المشارك والمدير العام",
-                operationsRole: "المؤسس المشارك ومدير العمليات",
-                commercialRole: "المؤسس المشارك ومدير التجاري",
-                itRole: "المؤسس المشارك ومدير تكنولوجيا المعلومات",
+                teamTitle: "المؤسيسين المشركة",
+                ceoRole: "المؤسس المشركة والمدير العام",
+                operationsRole: "المؤسس المشركة ومدير العمليات",
+                commercialRole: "المؤسس المشركة ومدير التجاري",
+                itRole: "المؤسس المشركة ومدير تكنولوجيا المعلومات",
                 
                 // Contact section
                 contactTitle: "اتصل بنا",
                 contactInfo: "معلومات الاتصال",
                 addressLabel: "العنوان:",
-                address: "المقر الرئيسي، المغرب",
+                address: "الدار البيضاء، المغرب",
                 phoneLabel: "الهاتف:",
                 emailLabel: "البريد الإلكتروني:",
                 hoursLabel: "ساعات العمل:",
-                hours: "الإثنين - الجمعة: 8:00 - 18:00
+                hours: "24/24",
+                marketingStrategy: "استراتيجيتنا التسويقية",
+                marketing1: "التسويق الرقمي - حضور قوي على وسائل التواصل الاجتماعي",
+                marketing2: "شراكات استراتيجية مع منصات التجارة الإلكترونية",
+                marketing3: "خدمة عملاء نموذجية",
+                marketing4: "العلامة التجارية المتنقلة مع مركبات مزينة بشعارنا",
+                quoteRequest: "طلب عرض سعر",
+                fullName: "الاسم الكامل",
+                email: "البريد الإلكتروني",
+                phone: "الهاتف",
+                serviceRequested: "الخدمة المطلوبة",
+                expressOption: "توصيل سريع",
+                standardOption: "توصيل عادي",
+                refrigeratedOption: "توصيل مبرد",
+                volumeOption: "توصيل الحجم الكبير",
+                message: "الرسالة",
+                messagePlaceholder: "صف احتياجاتك بالتفصيل...",
+                sendRequest: "إرسال الطلب",
+                
+                // Footer
+                footerDesc: "شريكك الموثوق لجميع احتياجات التوصيل في المغرب. الجودة، السرعة، الرضا.",
+                quickLinks: "روابط سريعة",
+                ourServices: "خدماتنا",
+                allRights: "جميع الحقوق محفوظة"
+            },
+            en: {
+                // Navigation
+                home: "Home",
+                about: "About",
+                services: "Services",
+                values: "Our Values",
+                team: "Team",
+                contact: "Contact",
+                
+                // Hero section
+                heroTitle: "Delivery Services in Morocco",
+                heroSubtitle: "Quality, Speed and Customer Satisfaction - Our commitment to your success",
+                getQuote: "Request a Quote",
+                
+                // About section
+                aboutTitle: "About Us",
+                missionTitle: "Our Mission",
+                missionText1: "NASRO AZZOU is a cargo delivery company focused on quality, speed, and satisfaction of customers and business partners. Our name embodies victory, pride and professionalism.",
+                missionText2: "The delivery sector is experiencing rapid growth in Morocco, driven by e-commerce and evolving consumption habits. We position ourselves as a key player in this expanding market.",
+                sloganTitle: "Our Slogan",
+                slogan: "QRS:",
+                sloganText: "Quality of shipped goods, Delivery speed, Customer satisfaction.",
+                
+                // Services section
+                servicesTitle: "Our Services",
+                expressDelivery: "Express Delivery",
+                expressDeliveryDesc: "Urgent parcels delivered in less than 24 hours to meet your most pressing needs.",
+                standardDelivery: "Standard Delivery",
+                standardDeliveryDesc: "Economical solutions for non-urgent shipments, with excellent value for money.",
+                refrigeratedDelivery: "Refrigerated Delivery",
+                refrigeratedDeliveryDesc: "Specialized transport for fresh and temperature-sensitive products.",
+                bulkDelivery: "Bulk Delivery",
+                bulkDeliveryDesc: "Service adapted for bulky items and large-sized shipments.",
+                realTimeTracking: "Real-Time Tracking",
+                realTimeTrackingDesc: "Complete visibility of your parcel's routing thanks to our advanced tracking system.",
+                cargoInsurance: "Cargo Insurance",
+                cargoInsuranceDesc: "Complete protection against damage and loss for total peace of mind.",
+                
+                // Values section
+                valuesTitle: "Our Distinctive Values",
+                speedValue: "Speed",
+                speedValueDesc: "We guarantee optimal delivery times, with special attention to urgent parcels.",
+                qualityValue: "Quality",
+                qualityValueDesc: "Each parcel is handled with care and professionalism, from pickup to final delivery.",
+                satisfactionValue: "Customer Satisfaction",
+                satisfactionValueDesc: "Our absolute priority is the satisfaction of our customers and business partners.",
+                reliabilityValue: "Reliability",
+                reliabilityValueDesc: "We are committed to honoring our commitments and guaranteeing the safety of your goods.",
+                
+                // Team section
+                teamTitle: "Our Team",
+                ceoRole: "Co-founder & General Manager",
+                operationsRole: "Co-founder & Operations Director",
+                commercialRole: "Co-founder & Commercial Director",
+                itRole: "Co-founder & IT Director",
+                
+                // Contact section
+                contactTitle: "Contact Us",
+                contactInfo: "Contact Information",
+                addressLabel: "Address:",
+                address: "Casablanca, Morocco",
+                phoneLabel: "Phone:",
+                emailLabel: "Email:",
+                hoursLabel: "Opening Hours:",
+                hours: "24/24",
+                marketingStrategy: "Our Marketing Strategy",
+                marketing1: "Digital Marketing - Strong presence on social media",
+                marketing2: "Strategic partnerships with e-commerce platforms",
+                marketing3: "Exemplary customer service",
+                marketing4: "Mobile branding with wrapped vehicles",
+                quoteRequest: "Quote Request",
+                fullName: "Full Name",
+                email: "Email",
+                phone: "Phone",
+                serviceRequested: "Requested Service",
+                expressOption: "Express Delivery",
+                standardOption: "Standard Delivery",
+                refrigeratedOption: "Refrigerated Delivery",
+                volumeOption: "Bulk Delivery",
+                message: "Message",
+                messagePlaceholder: "Describe your needs in detail...",
+                sendRequest: "Send Request",
+                
+                // Footer
+                footerDesc: "Your trusted partner for all your delivery needs in Morocco. Quality, Speed, Satisfaction.",
+                quickLinks: "Quick Links",
+                ourServices: "Our Services",
+                allRights: "All rights reserved"
+            }
+        };
+
+        // Current language
+        let currentLang = 'fr';
+
+        // Function to change language
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update RTL for Arabic
+            if (lang === 'ar') {
+                document.body.setAttribute('dir', 'rtl');
+            } else {
+                document.body.removeAttribute('dir');
+            }
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.setAttribute('placeholder', translations[lang][key]);
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Initialize language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                setLanguage(lang);
+            });
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav ul').classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav ul');
+            const menuButton = document.querySelector('.mobile-menu');
+            if (!nav.contains(event.target) && !menuButton.contains(event.target) && nav.classList.contains('show')) {
+                nav.classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking
+                    document.querySelector('nav ul').classList.remove('show');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('quoteForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your request! We will contact you soon.');
+            this.reset();
+        });
+
+        // Initialize with French language
+        setLanguage('fr');
+    </script>
+</body>
+</html>
